@@ -1,6 +1,24 @@
 <html>
-    <head><title>Tipsy</title></head>
+    <head>
+    	<title>Tipsy</title>
+    	<link rel = "stylesheet" href = "/static/css/bootstrap.css"
+    	type = "text/css">
+    </head>
+
+    </head>
     <body>
-        <h1>Task List</h1>
+        <h1>Task List</h1> 
+        <ul>
+        {% for task in tasks %}
+        <li> Task {{ task['id'] }}: {{ task ['title'] }} : 
+        	<form method = "POST" action = "/complete_task">
+        	<input type ="checkbox" name = "complete" value = "completed"> 
+
+        </li>
+        {% endfor %}
+        </ul>
+     <input type = "submit" value = "Submit">
+ </form>
+
     </body>
 </html>
