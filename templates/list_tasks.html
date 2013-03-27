@@ -1,24 +1,27 @@
-<html>
-    <head>
-    	<title>Tipsy</title>
-    	<link rel = "stylesheet" href = "/static/css/bootstrap.css"
-    	type = "text/css">
-    </head>
+{% extends "layout.html" %}
+{% block body %}
 
-    </head>
-    <body>
-        <h1>Task List</h1> 
-        <ul>
-        {% for task in tasks %}
-        <li> Task {{ task['id'] }}: {{ task ['title'] }} : 
-        	<form method = "POST" action = "/complete_task">
-        	<input type ="checkbox" name = "complete" value = "completed"> 
 
-        </li>
-        {% endfor %}
-        </ul>
-     <input type = "submit" value = "Submit">
- </form>
+<h1>Task List</h1> 
+<div class = "tasklist">
+    <ul>
+    {% for task in tasks %}
+    <li>
+        <a href = "{{url_for("view_task", id = task['id'])}}"</a>: 
 
-    </body>
-</html>
+    {{ task ['title'] }}
+    {% if task["completed_at"] %} &mdash; Completed
+    {% endif %}
+
+    </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<form method = "POST" action = "/save_task">
+    <label for = "title">New Task Item
+    <input type = "text" name = "title"></input>
+    <input type = "text" id = "id"></input>
+    <input type = "submit"></input>
+</form>
+{% endblock %}

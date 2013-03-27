@@ -14,6 +14,10 @@ def new_user(db, email, password, name):
     db.commit()
     return result.lastrowid
 
+def make_user(row):
+	fields = ["id", "email", "password", "username"]
+	return dict(zip(fields, row))
+
 def authenticate(db, email, password):
     c = db.cursor()
     query = """SELECT * from Users WHERE email=? AND password=?"""
@@ -43,8 +47,6 @@ def new_task(db, title, user_id):
 	query = """INSERT INTO Tasks VALUES (NULL, ?, ?, NULL, ?)"""                                                           
 	result = c.execute(query, (title, date_time, user_id))           
 	db.commit()
-	return result.lastrowid
-
 
 def complete_task(db, id):
 	"""Mark the task with the given task_id as being complete."""
@@ -104,3 +106,7 @@ def get_task(db, id):
 		return dict(zip(fields, result))
 	else:
 		print "task id not found"
+
+def make_task(row):
+	columns = ["id", "title", "created_at", "completed_at", "user_id"]
+	return dict(zip(columns, row))
